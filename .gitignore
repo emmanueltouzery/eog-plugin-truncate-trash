@@ -1,0 +1,6 @@
+lib/
+lib64
+include/
+bin/
+get_version/
+lib_truncate_trash.py
