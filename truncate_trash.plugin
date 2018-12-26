@@ -1,0 +1,10 @@
+[Plugin]
+Module=lib_truncate_trash
+IAge=2
+Loader=python3
+Name=Truncate+trash
+Icon=postr
+Description=Print a greeting to the console where eog is running
+Authors=Emmanuel Touzery <etouzery@gmail.com>
+Copyright=Copyright © 2018 Creative Commons
+Website=about:mozilla
