@@ -28,9 +28,6 @@
 
   (defn truncate-trash-image [self image window]
     (setv image-path (-> image .get-file .get-path))
-    ;; (os.system (+ "gio trash " image-path))
-    ;; (.remove-image (window.get-store) image)
-    ;; (.set-current-image window.get-thumb-view))
     (.activate (window.lookup-action "move-trash"))
     (os.system (+ "touch " image-path)))
 
