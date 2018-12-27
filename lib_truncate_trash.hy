@@ -1,6 +1,8 @@
 ;; inspired by https://github.com/GNOME/eog-plugins/blob/master/plugins/export-to-folder/export-to-folder.py
+;; and https://github.com/GNOME/eog-plugins/blob/master/plugins/slideshowshuffle/slideshowshuffle.py
 (import [gi.repository [GObject Eog Gio]])
 (import os)
+(import time)
 
 (defclass TruncateTrashPlugin [GObject.Object Eog.WindowActivatable]
   ;; Override EogWindowActivatable's window property
@@ -18,17 +20,18 @@
     (app.set-accels-for-action (+ "win." action-name) [shortcut None]))
 
   (defn do-activate [self]
-    (self.create-action "TruncateTrash" "E")
-    (print "The answer landed on my rooftop, whoa"))
+    (self.create-action "TruncateTrash" "<Control>E"))
 
   (defn truncate-trash-cb [self action parameter window]
     (setv image (window.get-image))
-    (if image (self.truncate-trash-image image)))
+    (if image (self.truncate-trash-image image window)))
 
-  (defn truncate-trash-image [self image]
+  (defn truncate-trash-image [self image window]
     (setv image-path (-> image .get-file .get-path))
-    (os.system (+ "gio trash " image-path))
+    ;; (os.system (+ "gio trash " image-path))
+    ;; (.remove-image (window.get-store) image)
+    ;; (.set-current-image window.get-thumb-view))
+    (.activate (window.lookup-action "move-trash"))
     (os.system (+ "touch " image-path)))
 
-  (defn do-deactivate [self]
-    (print "The answer fell off my rooftop, woot")))
+  (defn do-deactivate [self]))
