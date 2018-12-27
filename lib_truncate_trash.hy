@@ -2,7 +2,6 @@
 ;; and https://github.com/GNOME/eog-plugins/blob/master/plugins/slideshowshuffle/slideshowshuffle.py
 (import [gi.repository [GObject Eog Gio]])
 (import os)
-(import time)
 
 (defclass TruncateTrashPlugin [GObject.Object Eog.WindowActivatable]
   ;; Override EogWindowActivatable's window property
@@ -28,6 +27,8 @@
 
   (defn truncate-trash-image [self image window]
     (setv image-path (-> image .get-file .get-path))
+    ;; move-trash seen in eog source code, like eog-window.c
+    ;; function _eog_window_enable_image_actions()
     (.activate (window.lookup-action "move-trash"))
     (os.system (+ "touch " image-path)))
 
